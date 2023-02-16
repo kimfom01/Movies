@@ -4,6 +4,6 @@ namespace Movies.Models.APIModels;
 
 public class DetailsData
 {
-    [JsonPropertyName("movies")]
+    [JsonPropertyName("movie")]
     public DetailsDto? MoviesDetail { get; set; }
 }

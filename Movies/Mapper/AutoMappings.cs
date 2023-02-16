@@ -8,9 +8,9 @@ public class AutoMappings : Profile
 {
     public AutoMappings()
     {
-        CreateMap<MovieDto, Movie>().ForMember(mov =>
-            mov.Genre,
-            opt => opt.MapFrom(movDto =>
-            string.Join(", ", movDto.Genres)));
+        CreateMap<MovieDto, Movie>()
+            .ForMember(mov => mov.Genre, 
+            opt => opt.MapFrom(movDto => 
+            string.Join(" ", movDto.Genres)));
     }
 }

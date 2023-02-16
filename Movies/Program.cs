@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MovieDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString(""));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MoviesDb"));
 });
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 

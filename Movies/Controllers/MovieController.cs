@@ -12,13 +12,19 @@ namespace Movies.Controllers
             _movieRepository = movieRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
+
             var movies = _movieRepository.GetEntities();
 
-            var moviesSortedByDate = movies.OrderByDescending(mo => mo.Year).ToList();
+            movies = movies.OrderByDescending(mo => mo.Year).ToList();
 
-            return View(moviesSortedByDate);
+            if(!string.IsNullOrWhiteSpace(searchString))
+            {
+                movies = movies.Where(m => m.Title.Contains(searchString));
+            }
+
+            return View(movies);
         }
     }
 }

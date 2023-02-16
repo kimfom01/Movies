@@ -15,19 +15,16 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         _dbSet = movieDbContext.Set<TEntity>();
     }
 
-    public virtual async Task AddEntity(TEntity entity)
+    public virtual async Task AddEntities(IEnumerable<TEntity> entities)
     {
-        await _dbSet.AddAsync(entity);
+        await _dbSet.AddRangeAsync(entities);
     }
 
-    public virtual async Task DeleteEntity(Expression<Func<TEntity, bool>> expression)
+    public virtual Task DeleteEntities(IEnumerable<TEntity> entities)
     {
-        var entity = await _dbSet.FirstOrDefaultAsync(expression);
+        _dbSet.RemoveRange(entities);
 
-        if(entity is not null)
-        {
-            _dbSet.Remove(entity);
-        }
+        return Task.CompletedTask;
     }
 
     public virtual IEnumerable<TEntity> GetEntities()

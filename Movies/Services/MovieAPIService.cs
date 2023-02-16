@@ -1,4 +1,5 @@
 ﻿using Movies.Models;
+using Movies.Models.APIModels;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -32,18 +33,33 @@ public class MovieAPIService : IMovieAPIService
         return null;
     }
 
-    public async Task<IEnumerable<Movie>?> FetchMovies()
+    public async Task<IEnumerable<MovieDto>?> FetchMovies(Filter? filter)
     {
-        using var response = await _httpClient.GetAsync("list_movies.json");
+        using var response = await _httpClient.GetAsync($"list_movies.json?minimum_rating={filter?.Rating}&limit=50");
 
         if (response.IsSuccessStatusCode)
         {
             var stream = await response.Content.ReadAsStreamAsync();
-            var movieList = await JsonSerializer.DeserializeAsync<IEnumerable<Movie>>(stream);
+
+            var root = await JsonSerializer.DeserializeAsync<Root>(stream);
+
+            if (root is null)
+            {
+                return null;
+            }
+
+            var data = root.MovieData;
+
+            if (data is null)
+            {
+                return null;
+            }
+
+            var movieList = data.Movies;
 
             return movieList;
         }
 
         return null;
-    }   
+    }
 }

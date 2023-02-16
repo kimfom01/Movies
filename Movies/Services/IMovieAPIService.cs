@@ -1,10 +1,10 @@
 ﻿using Movies.Models;
+using Movies.Models.APIModels;
 
-namespace Movies.Services
+namespace Movies.Services;
+
+public interface IMovieAPIService
 {
-    public interface IMovieAPIService
-    {
-        Task<IEnumerable<Movie>?> FetchMovies();
-        Task<string?> FetchDetails(int id);
-    }
+    Task<IEnumerable<MovieDto>?> FetchMovies(Filter? filter);
+    Task<string?> FetchDetails(int id);
 }

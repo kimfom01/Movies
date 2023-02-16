@@ -11,6 +11,6 @@ public class AutoMappings : Profile
         CreateMap<MovieDto, Movie>().ForMember(mov =>
             mov.Genre,
             opt => opt.MapFrom(movDto =>
-            string.Join(",", movDto.Genres)));
+            string.Join(", ", movDto.Genres)));
     }
 }

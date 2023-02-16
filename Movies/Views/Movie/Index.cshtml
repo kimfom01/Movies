@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Genre);
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate);
+                @Html.DisplayNameFor(model => model.Year);
             </th>
         </tr>
     </thead>
@@ -41,7 +41,7 @@
                     @Html.DisplayFor(movieItem => movie.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(movieItem => movie.ImageUrl)
+                    <img src="@Html.DisplayFor(movieItem => movie.ImageUrl)" alt="@movie.Title" />
                 </td>
                 <td>
                     @Html.DisplayFor(movieItem => movie.Rating)
@@ -50,7 +50,7 @@
                     @Html.DisplayFor(movieItem => movie.Genre)
                 </td>
                 <td>
-                    @Html.DisplayFor(movieItem => movie.ReleaseDate)
+                    @Html.DisplayFor(movieItem => movie.Year)
                 </td>
 
                 <td>

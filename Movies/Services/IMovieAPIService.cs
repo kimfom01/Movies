@@ -6,5 +6,5 @@ namespace Movies.Services;
 public interface IMovieAPIService
 {
     Task<IEnumerable<MovieDto>?> FetchMovies(Filter? filter);
-    Task<string?> FetchDetails(int id);
+    Task<DetailsDto?> FetchDetails(int? id);
 }

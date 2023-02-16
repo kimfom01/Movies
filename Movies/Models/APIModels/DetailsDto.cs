@@ -21,4 +21,9 @@ public class DetailsDto
 
     [JsonPropertyName("description_full")]
     public required string Description { get; set; }
+
+    public string Genre
+    {
+        get { return string.Join(" ", Genres); }
+    }
 }

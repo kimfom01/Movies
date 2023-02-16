@@ -2,8 +2,8 @@
 
 namespace Movies.Models.APIModels;
 
-public class Root
+public class DetailsRoot
 {
     [JsonPropertyName("data")]
-    public MovieData? MovieData { get; set; }
+    public DetailsData? DetailsData { get; set; }
 }

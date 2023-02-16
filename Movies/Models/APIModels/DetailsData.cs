@@ -2,8 +2,8 @@
 
 namespace Movies.Models.APIModels;
 
-public class MovieData
+public class DetailsData
 {
     [JsonPropertyName("movies")]
-    public List<MovieDto>? MoviesDto { get; set; }
+    public DetailsDto? MoviesDetail { get; set; }
 }

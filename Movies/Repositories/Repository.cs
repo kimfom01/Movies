@@ -37,13 +37,6 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         return await _dbSet.FirstOrDefaultAsync(expression);
     }
 
-    public virtual Task UpdateEntity(TEntity entity)
-    {
-        _dbSet.Entry(entity).State = EntityState.Modified;
-
-        return Task.CompletedTask;
-    }
-
     public virtual async Task SaveChanges()
     {
         await _movieDbContext.SaveChangesAsync();

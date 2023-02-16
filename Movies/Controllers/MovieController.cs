@@ -1,30 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Repositories;
+using Movies.Services;
 
-namespace Movies.Controllers
+namespace Movies.Controllers;
+
+public class MovieController : Controller
 {
-    public class MovieController : Controller
+    private readonly IMovieRepository _movieRepository;
+    private readonly IMovieAPIService _movieAPIService;
+
+    public MovieController(
+        IMovieRepository movieRepository,
+        IMovieAPIService movieAPIService)
     {
-        private readonly IMovieRepository _movieRepository;
+        _movieRepository = movieRepository;
+        _movieAPIService = movieAPIService;
+    }
 
-        public MovieController(IMovieRepository movieRepository)
+    public IActionResult Index(string searchString)
+    {
+        var movies = _movieRepository.GetEntities();
+
+        movies = movies.OrderByDescending(mo => mo.Year).ToList();
+
+        if (!string.IsNullOrWhiteSpace(searchString))
         {
-            _movieRepository = movieRepository;
+            movies = movies.Where(mo => mo.Title.Contains(searchString));
         }
 
-        public IActionResult Index(string searchString)
+        return View(movies);
+    }
+
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id is null)
         {
-
-            var movies = _movieRepository.GetEntities();
-
-            movies = movies.OrderByDescending(mo => mo.Year).ToList();
-
-            if(!string.IsNullOrWhiteSpace(searchString))
-            {
-                movies = movies.Where(m => m.Title.Contains(searchString));
-            }
-
-            return View(movies);
+            return NotFound();
         }
+
+        var movieDetailsDto = await _movieAPIService.FetchDetails(id);
+
+        return View(movieDetailsDto);
     }
 }

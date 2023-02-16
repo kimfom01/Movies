@@ -16,7 +16,7 @@ namespace Movies.Controllers
         {
             var movies = _movieRepository.GetEntities();
 
-            var moviesSortedByDate = movies.OrderBy(mo => mo.ReleaseDate).ToList();
+            var moviesSortedByDate = movies.OrderByDescending(mo => mo.Year).ToList();
 
             return View(moviesSortedByDate);
         }

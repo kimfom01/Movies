@@ -12,7 +12,7 @@ This is a web-based movie management application that allows users to browse and
 
 ### Walkthrough Gif
 
-![Background](./walkthrough.gif)
+![walkthrough](https://user-images.githubusercontent.com/57032138/226823009-1fe62a61-3f55-4fc0-a474-9df9873673e2.gif)
 
 ### Key Features
 

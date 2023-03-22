@@ -8,6 +8,9 @@ This is a web-based movie management application that allows users to browse and
 - There needs to be a search functionality where I can search movies by name.
 - You should use SQL Server, not SQLite
 
+### Walkthrough Gif
+![Background](./walkthrough.gif)
+
 ### Key Features
 - Browse and search movies by title or genre
 - Fetches movie data from an external API and stores it in a database

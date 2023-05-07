@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
-using Movies.Models.APIModels;
+using Movies.Models;
 
 namespace Movies.MovieApi;
 
@@ -21,29 +21,19 @@ public class MovieApiService : IMovieApiService
     {
         using var response = await _httpClient.GetAsync($"list_movies.json?minimum_rating={filter?.Rating}&limit=50");
 
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            var stream = await response.Content.ReadAsStreamAsync();
-
-            var movieRoot = await JsonSerializer.DeserializeAsync<MovieRoot>(stream);
-
-            if (movieRoot is null)
-            {
-                return null;
-            }
-
-            var data = movieRoot.MovieData;
-
-            if (data is null)
-            {
-                return null;
-            }
-
-            var movieList = data.MoviesDto;
-
-            return movieList;
+            return null;
         }
+        
+        var stream = await response.Content.ReadAsStreamAsync();
 
-        return null;
+        var movieRoot = await JsonSerializer.DeserializeAsync<MovieRoot>(stream);
+
+        var data = movieRoot?.MovieData;
+
+        var movieList = data?.MoviesDto;
+
+        return movieList;
     }
 }

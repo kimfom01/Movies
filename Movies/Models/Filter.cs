@@ -1,4 +1,4 @@
-﻿namespace Movies.Models.APIModels;
+﻿namespace Movies.Models;
 
 public class Filter
 {

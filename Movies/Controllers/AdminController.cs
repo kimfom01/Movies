@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Models;
-using Movies.Models.APIModels;
 using Movies.MovieApi;
 using Movies.Repositories;
 

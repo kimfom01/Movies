@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Movies.Models.APIModels;
+namespace Movies.Models;
 
 public class MovieRoot
 {

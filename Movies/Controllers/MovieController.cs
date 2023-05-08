@@ -20,11 +20,10 @@ public class MovieController : Controller
         _mapper = mapper;
     }
 
+
     public IActionResult Index(string searchString)
     {
-        var movieDbDtos = _movieRepository.GetEntities();
-
-        var movies = _mapper.Map<IEnumerable<Movie>>(movieDbDtos);
+        var movies = _movieRepository.GetEntities();
 
         movies = movies.OrderByDescending(mo => mo.Year).ToList();
 

@@ -10,8 +10,8 @@ public class AutoMappings : Profile
         CreateMap<MovieApiDto, Movie>()
             .ForMember(mov => mov.Genre, 
             opt => opt.MapFrom(movDto => 
-            string.Join(" ", movDto.Genres)));
+            string.Join(" ", movDto.Genres))).ReverseMap();
 
-        CreateMap<Movie, Details>();
+        CreateMap<Movie, Details>().ReverseMap();
     }
 }

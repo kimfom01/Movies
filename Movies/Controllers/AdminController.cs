@@ -36,6 +36,7 @@ public class AdminController : Controller
         {
             return RedirectToAction("Index", controllerName: "Movie");
         }
+        
         var moviesApiDto = await _movieApiService.FetchMovies(filter);
 
         var movies = _mapper.Map<IEnumerable<Movie>>(moviesApiDto);

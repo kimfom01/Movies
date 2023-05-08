@@ -1,11 +1,11 @@
-﻿using Movies.Context;
+﻿using Movies.Areas.Identity.Data;
 using Movies.Models;
 
 namespace Movies.Repositories;
 
 public class MovieRepository : Repository<Movie>, IMovieRepository
 {
-    public MovieRepository(MovieDbContext movieDbContext) : base(movieDbContext)
+    public MovieRepository(MoviesContext movieDbContext) : base(movieDbContext)
     {
     }
 

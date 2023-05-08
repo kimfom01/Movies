@@ -1,15 +1,15 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Movies.Context;
+using Movies.Areas.Identity.Data;
 
 namespace Movies.Repositories;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly MovieDbContext _movieDbContext;
+    private readonly MoviesContext _movieDbContext;
     private readonly DbSet<TEntity> _dbSet;
 
-    protected Repository(MovieDbContext movieDbContext)
+    protected Repository(MoviesContext movieDbContext)
     {
         _movieDbContext = movieDbContext;
         _dbSet = movieDbContext.Set<TEntity>();

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Models;
 using Movies.Repositories;
 
 namespace Movies.Controllers;
 
+[Authorize]
 public class MovieController : Controller
 {
     private readonly IMovieRepository _movieRepository;

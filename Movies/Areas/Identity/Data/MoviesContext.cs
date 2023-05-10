@@ -7,6 +7,7 @@ namespace Movies.Areas.Identity.Data;
 public class MoviesContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Movie> Movies { get; set; }
+    public DbSet<LikedMovie> LikedMovies { get; set; }
     
     public MoviesContext(DbContextOptions<MoviesContext> options)
         : base(options)

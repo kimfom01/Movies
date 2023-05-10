@@ -34,7 +34,7 @@ public class MovieController : Controller
         return View(movies);
     }
 
-    private static IEnumerable<Movie> SearchForMovies(string searchString, IEnumerable<Movie> movies)
+    private IEnumerable<Movie> SearchForMovies(string searchString, IEnumerable<Movie> movies)
     {
         movies = movies.Where(mo => mo.Title.ToLower().Contains(searchString.ToLower())
                                     || mo.Genre.ToLower().Contains(searchString.ToLower()));

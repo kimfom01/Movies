@@ -4,7 +4,7 @@ using Movies.Models;
 
 namespace Movies.Areas.Identity.Data;
 
-public class MoviesContext : IdentityDbContext<MoviesUser>
+public class MoviesContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Movie> Movies { get; set; }
     

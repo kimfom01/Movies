@@ -6,21 +6,21 @@
 <form asp-controller="Movie" asp-action="Index" method="get">
     <p class="text-white">
         Title: <input type="text" name="SearchString" />
-        <input type="submit" class="btn btn-primary" value="Filter" />
+        <button type="submit" class="btn btn-primary">Filter</button>
     </p>
 </form>
 
 <div class="m-3">
     @if (!Model.Any())
     {
-        <p class="text-center text-white">There are currently no features available</p>
+        <p class="text-center text-white">There are currently no movies available</p>
     }
     else
     {
         <div class="row g-0 justify-content-center">
             @foreach (var movie in Model)
             {
-                <div class="card col-2 m-2">
+                <div class="card-frame card col-sm-12 col-md-4 col-lg-2 m-2">
                     <a asp-action="Details" asp-route-id="@movie.Id" class="link-dark text-decoration-none">
                         <div class="card-body">
                             <img src="@movie.ImageUrl" alt="@movie.Title" width="100%" />
@@ -30,6 +30,10 @@
                             <p>Release Year: @movie.Year</p>
                         </div>
                     </a>
+                    <button type="submit" class="btn btn-outline-danger like-movie" asp-action="AddLikedMovie" 
+                            asp-route-id="@movie.Id">
+                        <i class="bi bi-heart-fill"></i>
+                    </button>
                 </div>
             }
         </div>

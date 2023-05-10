@@ -12,7 +12,7 @@ builder.Services.AddDbContext<MoviesContext>(options =>
 });
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<MoviesContext>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMovieApiService, MovieApiService>();
 builder.Services.AddAutoMapper(typeof(Program));

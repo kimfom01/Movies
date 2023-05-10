@@ -60,4 +60,25 @@ public class MovieController : Controller
 
         return View(details);
     }
+
+    public async Task<IActionResult> AddLikedMovie(int? id)
+    {
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.Id == id);
+
+        if (movie is null)
+        {
+            return NotFound();
+        }
+
+        var likedMovie = _mapper.Map<LikedMovie>(movie);
+
+        await _unitOfWork.LikedMovies.AddEntity(likedMovie);
+
+        return View("Index");
+    }
 }

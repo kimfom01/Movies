@@ -13,5 +13,6 @@ public class AutoMappings : Profile
             string.Join(" ", movDto.Genres))).ReverseMap();
 
         CreateMap<Movie, Details>().ReverseMap();
+        CreateMap<Movie, LikedMovie>().ReverseMap();
     }
 }

@@ -15,6 +15,11 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         _dbSet = movieDbContext.Set<TEntity>();
     }
 
+    public async Task AddEntity(TEntity entity)
+    {
+        await _dbSet.AddAsync(entity);
+    }
+
     public virtual async Task AddEntities(IEnumerable<TEntity> entities)
     {
         await _dbSet.AddRangeAsync(entities);

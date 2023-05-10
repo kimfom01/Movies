@@ -11,16 +11,16 @@ namespace Movies.Controllers;
 public class AdminController : Controller
 {
     private readonly IMovieApiService _movieApiService;
-    private readonly IMovieRepository _movieRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public AdminController(
         IMovieApiService movieApiService, 
-        IMovieRepository movieRepository, 
+        IUnitOfWork unitOfWork, 
         IMapper mapper)
     {
         _movieApiService = movieApiService;
-        _movieRepository = movieRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -41,10 +41,15 @@ public class AdminController : Controller
 
         var movies = _mapper.Map<IEnumerable<Movie>>(moviesApiDto);
 
-        await _movieRepository.AddEntities(movies);
+        await _unitOfWork.Movies.AddEntities(movies);
 
-        await _movieRepository.SaveChanges();
+        var count = await _unitOfWork.SaveChanges();
 
+        if (count == 0)
+        {
+            return View("Index");
+        }
+        
         return RedirectToAction("Index", controllerName: "Movie");
     }
 }

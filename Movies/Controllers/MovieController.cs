@@ -9,21 +9,20 @@ namespace Movies.Controllers;
 [Authorize]
 public class MovieController : Controller
 {
-    private readonly IMovieRepository _movieRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public MovieController(
-        IMovieRepository movieRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _movieRepository = movieRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-
-
+    
     public IActionResult Index(string searchString)
     {
-        var movies = _movieRepository.GetEntities();
+        var movies = _unitOfWork.Movies.GetEntities();
 
         movies = movies.OrderByDescending(mo => mo.Year).ToList();
 
@@ -37,8 +36,8 @@ public class MovieController : Controller
 
     private static IEnumerable<Movie> SearchForMovies(string searchString, IEnumerable<Movie> movies)
     {
-        movies = movies.Where(mo => mo.Title.ToLower().Contains(searchString.ToLower()) 
-            || mo.Genre.ToLower().Contains(searchString.ToLower()));
+        movies = movies.Where(mo => mo.Title.ToLower().Contains(searchString.ToLower())
+                                    || mo.Genre.ToLower().Contains(searchString.ToLower()));
 
         return movies;
     }
@@ -50,9 +49,9 @@ public class MovieController : Controller
             return NotFound();
         }
 
-        var movie = await _movieRepository.GetOneEntity(mov => mov.Id == id);
+        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.Id == id);
 
-        if(movie is null)
+        if (movie is null)
         {
             return NotFound();
         }

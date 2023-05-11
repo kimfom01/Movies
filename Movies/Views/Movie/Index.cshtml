@@ -30,10 +30,11 @@
                             <p>Release Year: @movie.Year</p>
                         </div>
                     </a>
-                    <button type="submit" class="btn btn-outline-danger like-movie" asp-action="AddLikedMovie" 
-                            asp-route-id="@movie.Id">
-                        <i class="bi bi-heart-fill"></i>
-                    </button>
+                    <form method="post" asp-action="AddLikedMovie" asp-route-id="@movie.Id">
+                        <button type="submit" class="btn btn-outline-danger like-movie">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+                    </form>
                 </div>
             }
         </div>

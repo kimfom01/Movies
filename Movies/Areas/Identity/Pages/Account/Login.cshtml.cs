@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Movies.Areas.Identity.Data;
+using Movies.Models;
 
 namespace Movies.Areas.Identity.Pages.Account;
 

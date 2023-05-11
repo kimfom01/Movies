@@ -1,4 +1,4 @@
-using Movies.Areas.Identity.Data;
+using Movies.Data;
 using Movies.Models;
 
 namespace Movies.Repositories;

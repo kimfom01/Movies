@@ -1,5 +1,3 @@
-using Movies.Areas.Identity.Data;
-
 namespace Movies.Models;
 
 public class LikedMovie

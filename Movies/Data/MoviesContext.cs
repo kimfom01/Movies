@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Movies.Models;
 
-namespace Movies.Areas.Identity.Data;
+namespace Movies.Data;
 
 public class MoviesContext : IdentityDbContext<ApplicationUser>
 {

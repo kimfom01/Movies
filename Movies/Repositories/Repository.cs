@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Movies.Areas.Identity.Data;
+using Movies.Data;
 
 namespace Movies.Repositories;
 

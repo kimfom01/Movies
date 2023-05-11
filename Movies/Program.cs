@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Movies.Data;
 using Movies.MovieApi;
 using Movies.Repositories;
-using Movies.Areas.Identity.Data;
+using Movies.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

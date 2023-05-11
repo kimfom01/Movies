@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Models;
 using Movies.Repositories;
@@ -11,13 +12,16 @@ public class MovieController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public MovieController(
         IUnitOfWork unitOfWork,
-        IMapper mapper)
+        IMapper mapper,
+        UserManager<ApplicationUser> userManager)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _userManager = userManager;
     }
     
     public IActionResult Index(string searchString)
@@ -76,9 +80,11 @@ public class MovieController : Controller
         }
 
         var likedMovie = _mapper.Map<LikedMovie>(movie);
+        likedMovie.UserId = _userManager.GetUserId(User)!;
 
         await _unitOfWork.LikedMovies.AddEntity(likedMovie);
+        await _unitOfWork.SaveChanges();
 
-        return View("Index");
+        return RedirectToAction("Index");
     }
 }

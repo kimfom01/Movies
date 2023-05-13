@@ -12,7 +12,9 @@ builder.Services.AddDbContext<MoviesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MoviesDb"));
 });
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-    options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<MoviesContext>();
+{
+    options.SignIn.RequireConfirmedAccount = false;
+}).AddEntityFrameworkStores<MoviesContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMovieApiService, MovieApiService>();

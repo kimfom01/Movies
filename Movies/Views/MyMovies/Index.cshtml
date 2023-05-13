@@ -1,0 +1,12 @@
+@model IEnumerable<Movies.Models.LikedMovie>
+
+@{
+    ViewData["Title"] = "My Movies";
+}
+
+<ol>
+    @foreach (var movie in Model)
+    {
+        <li class="text-white">@movie.Title</li>
+    }
+</ol>

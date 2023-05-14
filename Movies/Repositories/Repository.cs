@@ -7,39 +7,39 @@ namespace Movies.Repositories;
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly MoviesContext _movieDbContext;
-    private readonly DbSet<TEntity> _dbSet;
+    protected readonly DbSet<TEntity> DbSet;
 
     protected Repository(MoviesContext movieDbContext)
     {
         _movieDbContext = movieDbContext;
-        _dbSet = movieDbContext.Set<TEntity>();
+        DbSet = movieDbContext.Set<TEntity>();
     }
 
     public async Task AddEntity(TEntity entity)
     {
-        await _dbSet.AddAsync(entity);
+        await DbSet.AddAsync(entity);
     }
 
     public virtual async Task AddEntities(IEnumerable<TEntity> entities)
     {
-        await _dbSet.AddRangeAsync(entities);
+        await DbSet.AddRangeAsync(entities);
     }
 
     public virtual Task DeleteEntities(IEnumerable<TEntity> entities)
     {
-        _dbSet.RemoveRange(entities);
+        DbSet.RemoveRange(entities);
 
         return Task.CompletedTask;
     }
 
     public virtual IEnumerable<TEntity> GetEntities()
     {
-        return _dbSet.AsNoTracking();
+        return DbSet.AsNoTracking();
     }
 
     public virtual async Task<TEntity?> GetOneEntity(Expression<Func<TEntity, bool>> expression)
     {
-        return await _dbSet.FirstOrDefaultAsync(expression);
+        return await DbSet.FirstOrDefaultAsync(expression);
     }
 
     public virtual async Task SaveChanges()

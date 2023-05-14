@@ -46,14 +46,14 @@ public class MovieController : Controller
         return movies;
     }
 
-    public async Task<IActionResult> Details(int? id)
+    public async Task<IActionResult> Details(int? movieId)
     {
-        if (id is null)
+        if (movieId is null)
         {
             return NotFound();
         }
 
-        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.Id == id);
+        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.MovieId == movieId);
 
         if (movie is null)
         {
@@ -65,14 +65,19 @@ public class MovieController : Controller
         return View(details);
     }
 
-    public async Task<IActionResult> AddLikedMovie(int? id)
+    public async Task<IActionResult> AddLikedMovie(int? movieId)
     {
-        if (id is null)
+        if (movieId is null)
         {
             return NotFound();
         }
 
-        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.Id == id);
+        if (_unitOfWork.LikedMovies.CheckMovie(movieId))
+        {
+            return RedirectToAction("Index");
+        }
+
+        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.MovieId == movieId);
 
         if (movie is null)
         {

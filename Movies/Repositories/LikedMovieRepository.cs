@@ -10,9 +10,9 @@ public class LikedMovieRepository: Repository<LikedMovie>, ILikedMovieRepository
     {
     }
 
-    public bool CheckMovie(int? movieId)
+    public bool CheckMovie(int? movieId, string? userId)
     {
-        return DbSet.Any(mov => mov.MovieId == movieId);
+        return DbSet.Any(mov => mov.MovieId == movieId && mov.UserId == userId);
     }
 
     public IEnumerable<LikedMovie> GetLikedMovies(string userId)

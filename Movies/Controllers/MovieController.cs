@@ -72,7 +72,9 @@ public class MovieController : Controller
             return NotFound();
         }
 
-        if (_unitOfWork.LikedMovies.CheckMovie(movieId))
+        var userId = _userManager.GetUserId(User);
+
+        if (_unitOfWork.LikedMovies.CheckMovie(movieId, userId))
         {
             return RedirectToAction("Index");
         }

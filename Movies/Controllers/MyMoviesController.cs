@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Models;
 using Movies.Repositories;
@@ -11,16 +12,20 @@ public class MyMoviesController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public MyMoviesController(IUnitOfWork unitOfWork, IMapper mapper)
+    public MyMoviesController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<ApplicationUser> userManager)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _userManager = userManager;
     }
     
     public IActionResult Index()
     {
-        var likedMovies = _unitOfWork.LikedMovies.GetEntities();
+        var userId = _userManager.GetUserId(User);
+        
+        var likedMovies = _unitOfWork.LikedMovies.GetLikedMovies(userId!);
         
         return View(likedMovies);
     }

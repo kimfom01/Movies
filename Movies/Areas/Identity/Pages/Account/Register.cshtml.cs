@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Movies.Data;
 using Movies.Models;
 
 namespace Movies.Areas.Identity.Pages.Account;
@@ -97,6 +98,7 @@ public class RegisterModel : PageModel
         await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
         var result = await _userManager.CreateAsync(user, Input.Password);
+        await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
 
         if (result.Succeeded)
         {

@@ -37,7 +37,7 @@ public class MyMoviesController : Controller
             return NotFound();
         }
 
-        var movie = await _unitOfWork.Movies.GetOneEntity(mov => mov.MovieId == movieId);
+        var movie = await _unitOfWork.LikedMovies.GetOneEntity(mov => mov.MovieId == movieId);
 
         if (movie is null)
         {

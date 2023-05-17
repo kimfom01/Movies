@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Movies.Data;
 using Movies.MovieApi;
@@ -14,7 +15,8 @@ builder.Services.AddDbContext<MoviesContext>(options =>
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
-}).AddEntityFrameworkStores<MoviesContext>();
+}).AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<MoviesContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMovieApiService, MovieApiService>();
@@ -39,5 +41,9 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{movieId?}");
+
+var serviceProvider = app.Services.CreateScope().ServiceProvider;
+await ContextSeed.SeedRolesAsync(serviceProvider);
+await ContextSeed.CreateAdminAsync(serviceProvider);
 
 app.Run();

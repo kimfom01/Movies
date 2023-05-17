@@ -7,7 +7,7 @@ using Movies.Repositories;
 
 namespace Movies.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly IMovieApiService _movieApiService;

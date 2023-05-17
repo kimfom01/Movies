@@ -15,6 +15,10 @@ public class AutoMappings : Profile
 
         CreateMap<Movie, Details>()
             .ReverseMap();
+        
+        CreateMap<LikedMovie, Details>()
+            .ReverseMap();
+        
         CreateMap<Movie, LikedMovie>()
             .ForMember(liked => liked.Id,
                 opt => opt.Ignore())

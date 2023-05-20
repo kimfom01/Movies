@@ -48,4 +48,21 @@ public class MyMoviesController : Controller
 
         return View(details);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Details(Status status, int movieId)
+    {
+        var movie = await _unitOfWork.LikedMovies.GetOneEntity(mov => mov.MovieId == movieId);
+
+        if (movie is null)
+        {
+            return NotFound();
+        }
+
+        movie.Status = status;
+
+        await _unitOfWork.SaveChanges();
+
+        return RedirectToAction("Details", new { movieId });
+    }
 }

@@ -8,4 +8,5 @@ public class Details
     public required string Genre { get; set; }
     public int Year { get; set; }
     public required string Description { get; set; }
+    public Status? Status { get; set; }
 }

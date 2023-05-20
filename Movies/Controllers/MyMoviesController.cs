@@ -37,7 +37,10 @@ public class MyMoviesController : Controller
             return NotFound();
         }
 
-        var movie = await _unitOfWork.LikedMovies.GetOneEntity(mov => mov.MovieId == movieId);
+        var userId = _userManager.GetUserId(User);
+        
+        var movie = await _unitOfWork.LikedMovies
+            .GetOneEntity(mov => mov.MovieId == movieId && mov.UserId == userId);
 
         if (movie is null)
         {
@@ -52,17 +55,20 @@ public class MyMoviesController : Controller
     [HttpPost]
     public async Task<IActionResult> Details(Status status, int movieId)
     {
-        var movie = await _unitOfWork.LikedMovies.GetOneEntity(mov => mov.MovieId == movieId);
-
+        var userId = _userManager.GetUserId(User);
+        
+        var movie = await _unitOfWork.LikedMovies
+            .GetOneEntity(mov => mov.MovieId == movieId && mov.UserId == userId);
+    
         if (movie is null)
         {
             return NotFound();
         }
-
+    
         movie.Status = status;
-
+    
         await _unitOfWork.SaveChanges();
-
-        return RedirectToAction("Details", new { movieId });
+    
+        return RedirectToAction("Details", new { movie.MovieId });
     }
 }

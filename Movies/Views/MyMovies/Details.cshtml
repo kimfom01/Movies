@@ -57,6 +57,7 @@
 </div>
 <div class="row">
     <form method="post" asp-action="Details" asp-controller="MyMovies" class="col-3">
+        <input type="hidden" asp-for="@Model.MovieId" />
         <select class="form-select" asp-for="Status" id="statusSelect" asp-items="Html.GetEnumSelectList<Status>()">
             <option value="">-- Select a Status --</option>
         </select>
